@@ -1,4 +1,6 @@
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:shebuilds/constants.dart';
 
 class kTextFormField extends StatelessWidget {
   kTextFormField({
@@ -45,6 +47,26 @@ class kTextFormField extends StatelessWidget {
               strokeAlign: StrokeAlign.inside),
         ),
       ),
+    );
+  }
+}
+
+class Navbar extends StatelessWidget {
+  const Navbar({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return CurvedNavigationBar(
+      backgroundColor: kpurpleShade,
+      animationDuration: Duration(microseconds: 500),
+      // animationCurve: Curves.bounceInOut,
+      items: [
+        Icon(Icons.home_filled),
+        Icon(Icons.stacked_bar_chart),
+        Icon(Icons.radar),
+      ],
     );
   }
 }

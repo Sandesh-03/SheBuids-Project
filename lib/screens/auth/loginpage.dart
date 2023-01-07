@@ -1,9 +1,12 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shebuilds/constants.dart';
+import 'package:shebuilds/screens/auth/forget%20password.dart';
 import 'package:shebuilds/screens/auth/signup.dart';
+import 'package:shebuilds/screens/home.dart';
 
-import '../constants/ConstantTextForm.dart';
+import '../constants/ConstantWidgits.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -12,28 +15,31 @@ class LoginPage extends StatefulWidget {
   State<LoginPage> createState() => _LoginPageState();
 }
 
-RegExp regExp = RegExp(
-    r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$');
-
 class _LoginPageState extends State<LoginPage> {
   //-----sizes-----//
   //--------------------//
   final kLogInFormKey = GlobalKey<FormState>();
   TextEditingController kEmailController = TextEditingController();
   TextEditingController kPasswordController = TextEditingController();
-  bool isVisible = false;
+  bool isVisible = true;
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
+
+    void ClearFields() {
+      kPasswordController.clear();
+      kEmailController.clear();
+      // kNameController.clear();
+    }
 
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 30),
         child: Form(
           key: kLogInFormKey,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
+          child: ListView(
+            // crossAxisAlignment: CrossAxisAlignment.center,
             // mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const Center(
@@ -50,7 +56,7 @@ class _LoginPageState extends State<LoginPage> {
               ),
               const SizedBox(height: 40),
               kTextFormField(
-                icon: Icon(Icons.mail),
+                icon: const Icon(Icons.mail),
                 kController: kEmailController,
                 lable: 'Email',
                 validator: (val) {
@@ -87,14 +93,30 @@ class _LoginPageState extends State<LoginPage> {
                 icon: Icon(Icons.key),
                 validator: (val) {
                   if (val == null || val == "") {
-                    return 'Please Enter your Email';
+                    return 'Please Enter your Password';
                   }
                 },
               ),
-              Spacer(),
+              SizedBox(
+                height: height / 3,
+                child: const Image(
+                  image: AssetImage('assets/girl-meditatimg.png'),
+                ),
+              ),
               GestureDetector(
                 onTap: () {
                   kLogInFormKey.currentState!.validate();
+
+                  FirebaseAuth.instance
+                      .signInWithEmailAndPassword(
+                          email: kEmailController.text.trim(),
+                          password: kPasswordController.text)
+                      .then((value) => (Navigator.pushReplacement(
+                          (context),
+                          MaterialPageRoute(
+                              builder: (context) => const Home()))))
+                      .onError((error, stackTrace) => print("$error"));
+                  ClearFields();
                 },
                 child: Container(
                     padding: const EdgeInsets.all(10),
@@ -138,6 +160,16 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ],
               ),
+              TextButton(
+                onPressed: () {
+                  Navigator.push((context),
+                      CupertinoPageRoute(builder: (context) => ForgetPass()));
+                },
+                child: const Text(
+                  'Forget Password?',
+                  style: TextStyle(color: Colors.blue),
+                ),
+              )
             ],
           ),
         ),
