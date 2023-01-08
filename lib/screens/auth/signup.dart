@@ -127,8 +127,10 @@ class _SignUpPageState extends State<SignUpPage> {
                         .createUserWithEmailAndPassword(
                             email: kEmailController.text.trim(),
                             password: kPasswordController.text)
-                        .then((value) => (Navigator.pushReplacement((context),
-                            CupertinoPageRoute(builder: (context) => Home()))))
+                        .then((value) => (Navigator.pushReplacement(
+                            (context),
+                            CupertinoPageRoute(
+                                builder: (context) => const Home()))))
                         .onError((error, stackTrace) =>
                             print("erroe:${error.toString()}"));
 

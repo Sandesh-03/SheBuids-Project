@@ -13,13 +13,10 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Home'),
-      ),
-      body: Column(
-        children: const [Image(image: AssetImage('assets/running-girl.png'))],
-      ),
-      bottomNavigationBar: Navbar(),
-    );
+        body: Container(
+      height: double.infinity,
+      width: double.infinity,
+      child: Pageselected(index: index),
+    ));
   }
 }

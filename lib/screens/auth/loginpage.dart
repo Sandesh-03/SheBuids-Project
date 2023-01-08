@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:shebuilds/constants.dart';
 import 'package:shebuilds/screens/auth/forget%20password.dart';
 import 'package:shebuilds/screens/auth/signup.dart';
-import 'package:shebuilds/screens/home.dart';
 
 import '../constants/ConstantWidgits.dart';
+import '../constants/Exercise.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -114,7 +114,7 @@ class _LoginPageState extends State<LoginPage> {
                       .then((value) => (Navigator.pushReplacement(
                           (context),
                           MaterialPageRoute(
-                              builder: (context) => const Home()))))
+                              builder: (context) => ExercisePage()))))
                       .onError((error, stackTrace) => print("$error"));
                   ClearFields();
                 },

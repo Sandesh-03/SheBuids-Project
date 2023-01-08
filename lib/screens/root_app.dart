@@ -85,14 +85,14 @@ class _RootAppState extends State<RootApp> {
                       size: 28,
                       color: pageIndex == index ? thirdColor : black,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 5,
                     ),
                     pageIndex == index
                         ? Container(
                             width: 6,
                             height: 6,
-                            decoration: BoxDecoration(
+                            decoration: const BoxDecoration(
                                 color: thirdColor, shape: BoxShape.circle),
                           )
                         : Container()
